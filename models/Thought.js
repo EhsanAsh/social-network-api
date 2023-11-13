@@ -3,7 +3,7 @@
 
 // Importing mongoose and reactionSchema
 // ==========================================================
-const { Schema, model, Types } = require('mongoose');
+const { Schema, model } = require('mongoose');
 const Reaction = require('./Reaction');
 const dateFormat = require('../utils/dateFormat');
 // ==========================================================
@@ -32,6 +32,7 @@ const thoughtSchema = new Schema(
 
         reactions: [Reaction],
     },
+
     {
         toJSON: {
             virtuals: true,

@@ -15,7 +15,7 @@ const cwd = process.cwd();
 
 // Define the Express App
 // =============================================================
-const PORT = process.env.PORT || 3001;
+const PORT = 3001;
 const app = express();
 // =============================================================
 

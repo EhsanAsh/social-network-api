@@ -1,0 +1,34 @@
+{
+  "name": "social-network-api",
+  "version": "1.0.0",
+  "description": "an API for a social network web application where users can share their thoughts, react to friends thoughts, and create a friend list.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "seed": "node utils/seed.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EhsanAsh/social-network-api.git"
+  },
+  "author": "EhsanAsh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/EhsanAsh/social-network-api/issues"
+  },
+  "homepage": "https://github.com/EhsanAsh/social-network-api#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^8.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.53.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-n": "^16.3.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "prettier": "3.1.0"
+  }
+}

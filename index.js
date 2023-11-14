@@ -5,7 +5,7 @@
 // =============================================================
 const express = require('express');
 const db = require('./config/connection');
-const routes = require('./routes');
+// const routes = require('./routes');
 // =============================================================
 
 // Define CWD
@@ -28,7 +28,7 @@ const activity = cwd.includes('01-Sample') ? cwd.split('01-Sample')[1] : cwd;
 // =============================================================
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(routes);
+// app.use(routes);
 // =============================================================
 
 // Define the server's listening port

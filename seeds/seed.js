@@ -3,8 +3,8 @@
 // ==========================================================
 const connection = require('../config/connection');
 const { User, Thought } = require('../models');
-const { generateThoughts } = require('./thoughtData');
-const { generateUser } = require('./userData');
+const generateThoughts = require('./thoughtData');
+const generateUser = require('./userData');
 // ==========================================================
 
 // Connect to the database

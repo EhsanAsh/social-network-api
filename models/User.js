@@ -15,6 +15,13 @@ const userSchema = new Schema(
             unique: true,
             required: 'You must provide a username!',
             trim: true,
+            validate: {
+                validator: function (v) {
+                    return v.length >= 3 && v.length <= 20;
+                },
+                message: (props) =>
+                    `${props.value} is not a valid username! Usernames must be between 3 and 20 characters long.`,
+            },
         },
 
         email: {

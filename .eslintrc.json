@@ -11,16 +11,16 @@
     "rules": {
         "no-undef-init": "error",
         "no-duplicate-case": "error",
+        "no-irregular-whitespace": "error",
+        "no-multi-spaces": "error",
         "no-empty": "error",
         "no-extra-semi": "error",
         "no-func-assign": "error",
-        "no-irregular-whitespace": "error",
         "no-unreachable": "error",
         "curly": "error",
         "dot-notation": "error",
         "eqeqeq": "error",
         "no-empty-function": "error",
-        "no-multi-spaces": "error",
         "no-mixed-spaces-and-tabs": "error",
         "no-trailing-spaces": "error",
         "default-case": "error",
@@ -31,7 +31,10 @@
         "brace-style": "error",
         "indent": [
             "error",
-            4
+            4,
+            {
+                "MemberExpression": "off"
+            }
         ],
         "quotes": [
             "error",

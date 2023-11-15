@@ -120,6 +120,54 @@ const userController = {
             res.status(500).json(err);
         }
     },
+    // ==============================================================
+
+    // Add a friend to a user's friend list
+    // ==============================================================
+    async addFriend(req, res) { 
+        try {
+            const userData = await User
+                .findOneAndUpdate(
+                    { _id: req.params.userId },
+                    // Add the friend's ID to the user's friends array
+                    { $addToSet: { friends: req.params.friendId } },
+                    { runValidators: true, new: true }
+                )
+                .select('-__v');
+            if (!userData) {
+                res.status(404).json({ message: 'No user found with this ID!' });
+                return;
+            }
+            res.json(userData);
+        } catch (err) {
+            console.error(`An error occurred while trying to add a friend: ${err}`);
+            res.status(500).json(err);
+        }
+    },
+    // ==============================================================
+
+    // Remove a friend from a user's friend list
+    // ==============================================================
+    async removeFriend(req, res) { 
+        try{
+            const userData = await User
+                .findOneAndUpdate(
+                    { _id: req.params.userId },
+                    // Remove the friend's ID from the user's friends array
+                    { $pull: { friends: req.params.friendId } },
+                    { new: true }
+                )
+                .select('-__v');
+            if (!userData) {
+                res.status(404).json({ message: 'No user found with this ID!' });
+                return;
+            }
+            res.json(userData);
+        } catch (err) {
+            console.error(`An error occurred while trying to remove a friend: ${err}`);
+            res.status(500).json(err);
+        }
+    },
 };
 // ==============================================================
 

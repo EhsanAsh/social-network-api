@@ -15,7 +15,6 @@ const userController = {
         try {
             const userData = await User
                 .find()
-                .pretty()
                 .select('-__v')
                 .sort({ _id: 1 });
             res.json(userData);

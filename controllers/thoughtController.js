@@ -16,7 +16,6 @@ const thoughtController = {
         try {
             const thoughtData = await Thought
                 .find()
-                .pretty()
                 .select('-__v')
                 .sort({ _id: 1 });
             res.json(thoughtData);
@@ -56,7 +55,8 @@ const thoughtController = {
                 { _id: req.body.userId },
                 { $push: { thoughts: thoughtData._id } },
                 { runValidators: true, new: true }
-            );
+            )
+                .select('-__v');
             if (!userData) {
                 res.status(404).json({ message: 'No user found with this ID!' });
                 return;
@@ -101,7 +101,7 @@ const thoughtController = {
             }
 
             const userData = await User.findOneAndUpdate(
-                { _id: thoughtData.userId },
+                { thoughts: req.params.thoughtId },
                 { $pull: { thoughts: req.params.thoughtId } },
                 { runValidators: true, new: true }
             );

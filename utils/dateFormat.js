@@ -1,5 +1,6 @@
 // Desc: This file contains the function to format the date
 // Date: 13/11/2023
+// Used (https://www.w3schools.com/js/js_dates.asp) as a reference
 // ==============================================================
 
 // Function to format the date

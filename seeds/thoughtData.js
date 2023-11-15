@@ -3,7 +3,7 @@
 
 // Import the dateFormat function
 // ==========================================================
-const dateFormat = require('../utils/dateFormat');
+const { get } = require('../models/Reaction');
 // ==========================================================
 
 // Assigning the data to variables
@@ -139,11 +139,16 @@ const getRandomReaction = () => getRandom(reactions);
 // ==========================================================
 
 // function to generate random date
+// creating a random date between January 1, 2012 and now.
+// Used (https://www.w3schools.com/js/js_dates.asp) as a reference
 // ==========================================================
-const randomDate = (start, end) => {
-    return new Date(
+const getRandomDate = () => {
+    const start = new Date(2012, 0, 1);
+    const end = new Date();
+    const randomDate = new Date(
         start.getTime() + Math.random() * (end.getTime() - start.getTime())
-    ); // the getTime() method returns the number of milliseconds since January 1, 1970
+    );
+    return randomDate.toISOString().split('T')[0];
 };
 // ==========================================================
 
@@ -152,13 +157,12 @@ const randomDate = (start, end) => {
 // ==========================================================
 const generateThoughts = (int) => {
     const thoughtData = [];
+    let date = getRandomDate();
 
     for (let i = 0; i < int; i++) {
         const thought = {
             thoughtText: getRandomThought(),
-            // creating a random date between January 1, 2012 and now,
-            // using the randomDate function, then formatting it with dateFormat
-            createdAt: dateFormat(randomDate(new Date(2012, 0, 1), new Date())),
+            createdAt: date,
             username: getRandomUsername(),
             reactions: [],
         };
@@ -169,9 +173,7 @@ const generateThoughts = (int) => {
             const reaction = {
                 reactionBody: getRandomReaction(),
                 username: getRandomUsername(),
-                createdAt: dateFormat(
-                    randomDate(new Date(2012, 0, 1), new Date())
-                ),
+                createdAt: date,
             };
 
             thought.reactions.push(reaction);

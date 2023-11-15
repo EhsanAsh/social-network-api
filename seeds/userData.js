@@ -1,6 +1,5 @@
 // Desc: This file contains the data for the users.
 // ==========================================================
-//user: username, email, thoughts
 
 const { get } = require('mongoose');
 
@@ -38,7 +37,9 @@ const names = [
 // A function to create emails from the names array
 // ==========================================================
 const createEmail = (name) => {
-    return `${name.split(' ')[0].toLowerCase()}@thoughts.com`;
+    return `${name.split(' ')[0].toLowerCase()}${Math.floor(
+        Math.random() * 1000 + 1
+    )}@thoughts.com`;
 };
 // ==========================================================
 

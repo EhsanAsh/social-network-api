@@ -67,6 +67,34 @@ const userController = {
             }
         }
     },
+    // ==============================================================
+
+    // Update a user by ID
+    // ==============================================================
+    async updateOneUser(req, res) { 
+        try{
+            const userData = await User
+                .findOneAndUpdate(
+                    { _id: req.params.userId },
+                    { $set: req.body },
+                    { runValidators: true, new: true }
+                )
+                .select('-__v');
+            if (!userData) {
+                res.status(404).json({ message: 'No user found with this ID!' });
+                return;
+            }
+            res.json(userData);
+        } catch (err) {
+            if (err instanceof mongoose.Error.ValidationError) {
+                res.status(400).send({ error: err.message });
+            }
+            else {
+                console.error(`An error occurred while trying to update a user: ${err}`);
+                res.status(500).json(err);
+            }
+        }
+    },
 };
 // ==============================================================
 

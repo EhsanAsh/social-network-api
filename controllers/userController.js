@@ -155,7 +155,7 @@ const userController = {
                     { _id: req.params.userId },
                     // Remove the friend's ID from the user's friends array
                     { $pull: { friends: req.params.friendId } },
-                    { new: true }
+                    { runValidators: true, new: true }
                 )
                 .select('-__v');
             if (!userData) {

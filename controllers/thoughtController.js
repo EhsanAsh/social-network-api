@@ -93,30 +93,72 @@ const thoughtController = {
     // Delete a thought by ID
     // ==============================================================
     async removeThought(req, res) { 
-      try {
-        const thoughtData = await Thought.findOneAndDelete({ _id: req.params.thoughtId });
-        if (!thoughtData) {
-          res.status(404).json({ message: 'No thought found with this ID!' });
-          return;
-        }
-
-        const userData = await User.findOneAndUpdate(
-            { _id: thoughtData.userId },
-            { $pull: { thoughts: req.params.thoughtId } },
-            { runValidators: true, new: true }
-        );
-
-        if (!userData) {
-            res.status(404).json({ message: 'No user found with this ID!' });
+        try {
+          const thoughtData = await Thought.findOneAndDelete({ _id: req.params.thoughtId });
+          if (!thoughtData) {
+            res.status(404).json({ message: 'No thought found with this ID!' });
             return;
+          }
+
+          const userData = await User.findOneAndUpdate(
+              { _id: thoughtData.userId },
+              { $pull: { thoughts: req.params.thoughtId } },
+              { runValidators: true, new: true }
+          );
+
+          if (!userData) {
+              res.status(404).json({ message: 'No user found with this ID!' });
+              return;
+          }
+
+          res.json(`Thought ${thoughtData._id} and its associated reactions have been deleted!`);
+
+        } catch (err) {
+          console.error(`An error occurred while trying to delete a thought: ${err}`);
+          res.status(500).json(err);
         }
+    },  
+    // ==============================================================
 
-        res.json(`Thought ${thoughtData._id} and its associated reactions have been deleted!`);
+    // Add a reaction to a thought
+    // ==============================================================
+    async addReaction(req, res) {
+        try {
+          const thoughtData = await Thought.findOneAndUpdate(
+            { _id: req.params.thoughtId },
+            { $addToSet: { reactions: req.body } },
+            { runValidators: true, new: true }
+          );
+          if (!thoughtData) {
+            res.status(404).json({ message: 'No thought found with this ID!' });
+            return;
+          }
+          res.json(thoughtData);
+        } catch (err) {
+          console.error(`An error occurred while trying to add a reaction: ${err}`);
+          res.status(500).json(err);
+        }
+    },
+    // ==============================================================
 
-      } catch (err) {
-        console.error(`An error occurred while trying to delete a thought: ${err}`);
-        res.status(500).json(err);
-      }
+    // Remove a reaction from a thought
+    // ==============================================================
+    async removeReaction(req, res) {
+        try {
+          const thoughtData = await Thought.findOneAndUpdate(
+            { _id: req.params.thoughtId },
+            { $pull: { reactions: { reactionId: req.params.reactionId } } },
+            { runValidators: true, new: true }
+          );
+          if (!thoughtData) {
+            res.status(404).json({ message: 'No thought found with this ID!' });
+            return;
+          }
+          res.json(thoughtData);
+        } catch (err) {
+          console.error(`An error occurred while trying to remove a reaction: ${err}`);
+          res.status(500).json(err);
+        }
     },
 
 };

@@ -3,7 +3,7 @@
 
 // Importing the required modules
 // ==============================================================
-const { User } = require('../models');
+const { User, Thought } = require('../models');
 // ==============================================================
 
 // Defining the userController object
@@ -93,6 +93,31 @@ const userController = {
                 console.error(`An error occurred while trying to update a user: ${err}`);
                 res.status(500).json(err);
             }
+        }
+    },
+    // ==============================================================
+
+    // Delete a user by ID
+    // ==============================================================
+    async deleteOneUser(req, res) { 
+        try {
+            const userData = await User
+                .findOneAndDelete({ _id: req.params.userId })
+                .select('-__v');
+            
+            if (!userData) {
+                res.status(404).json({ message: 'No user found with this ID!' });
+                return;
+            }
+
+            // Delete the user's associated thoughts by the id inside the thoughts array
+            await Thought.deleteMany({ _id: { $in: userData.thoughts } });
+
+            res.json(`User ${userData.username} and their associated thoughts have been deleted!`);
+
+        } catch (err) {
+            console.error(`An error occurred while trying to delete a user: ${err}`);
+            res.status(500).json(err);
         }
     },
 };

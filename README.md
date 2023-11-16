@@ -71,7 +71,7 @@ _Refer to the technical guidelines for detailed information on request and respo
 
 ## Demo
 
-[Link to walk-through video]()
+[Link to walk-through video](https://drive.google.com/file/d/1Aqae5AbTfLYfd8xOfEfuUNKvu5otZPaV/view)
 
 ---
 
